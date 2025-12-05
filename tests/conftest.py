@@ -68,7 +68,7 @@ def driver():
     chrome_options = Options()
 
     # chrome_options.add_argument("--window-size=1280,900")
-    # chrome_options.add_argument("--headless")
+    chrome_options.add_argument("--headless")
     chrome_options.page_load_strategy = "none"
 
     # Todo - для firefox другие переменные передаются в расширение:
