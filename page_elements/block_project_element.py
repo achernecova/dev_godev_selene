@@ -5,5 +5,6 @@ class BlockProjectElement:
     # локатор блока с карточками
     cards = browser.all(".projects-item")
 
-    def button_project(self):
+    @staticmethod
+    def button_project():
         return browser.all(".projects-item")

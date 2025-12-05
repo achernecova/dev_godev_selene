@@ -2,7 +2,6 @@ import allure
 import pytest
 from allure_commons.types import Severity
 
-from config import config
 from pages.d2c_page_selene import D2CPageSelene
 
 
@@ -27,11 +26,9 @@ from pages.d2c_page_selene import D2CPageSelene
     ids=["e_com", "landing_page", "b2b_page", "framework_page"],
 )
 def test_d2c_page_website_packages_block_open_page(index, page_name, title_page):
-    base_page_data = config.get_page_data("base_page")
-
     with allure.step("Открываем главную страницу"):
         page = D2CPageSelene()
-        page.open_d2c_page(base_page_data["url_page"])
+        page.open_page()
 
     with allure.step(f"Открываем страницу '{page_name}' из блока Website Packages"):
         page.open_page_from_website_packages_block_by_index(index)

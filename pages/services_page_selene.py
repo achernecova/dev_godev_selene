@@ -7,7 +7,6 @@ from page_elements.cookies_popup import CookiesPopup
 from page_elements.metadata_elements import MetaDataElements
 from page_elements.scroll_element_selene import ScrollElement
 from page_elements.service_item_block_selene import ServiceItemBlockSelene
-from page_elements.website_packages_block_selene import WebSitePackagesBlockSelene
 
 
 class ServicesPageSelene:
@@ -17,7 +16,6 @@ class ServicesPageSelene:
         self.cookie_modal = CookiesPopup()
         self.metadata_helper = MetaDataElements()
         self.service_item_block_card_more = ServiceItemBlockSelene()
-        self.block_website_package = WebSitePackagesBlockSelene()
         self.block_project = BlockProjectElement()
         self.scroll_element = ScrollElement()
 
@@ -42,6 +40,7 @@ class ServicesPageSelene:
         more_buttons = self.service_item_block_card_more.more_buttons()
         self.scroll_element.scroll_to_element("(//*[@class='service-item']//a)", index)
         self.close_cookies()
+        self.scroll_element.scroll_to_element("(//*[@class='service-item']//a)", index)
         more_buttons[index - 1].click()
 
     @allure.step("Проверяем URL и заголовок страницы")
@@ -56,5 +55,6 @@ class ServicesPageSelene:
     def open_page_from_project_block_by_index(self, value):
         self.scroll_element.scroll_to_element("(//*[@class='projects-item'])", value)
         self.cookie_modal.close_modal()
+        self.scroll_element.scroll_to_element("(//*[@class='projects-item'])", value)
         more_buttons = self.block_project.button_project()
         more_buttons[value - 1].click()

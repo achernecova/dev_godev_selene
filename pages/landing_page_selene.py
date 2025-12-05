@@ -39,5 +39,6 @@ class LandingPageSelene:
     def open_page_from_project_block_by_index(self, value):
         self.scroll_element.scroll_to_element("(//*[@class='projects-item'])", value)
         self.cookie_modal.close_modal()
+        self.scroll_element.scroll_to_element("(//*[@class='projects-item'])", value)
         more_buttons = self.block_project.button_project()
         more_buttons[value - 1].click()

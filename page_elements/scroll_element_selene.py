@@ -18,8 +18,12 @@ class ScrollElement:
             # Если индекс указан, прокручиваем к конкретному элементу внутри блока
             xpath_string = f"({selector})[{index}]"  # Создаем XPath с индексом
             element = browser.element((By.XPATH, xpath_string))
+        # browser.execute_script(
+        #     "arguments[0].scrollIntoView({block: 'center'});", element.locate()
+        # )
         browser.execute_script(
-            "arguments[0].scrollIntoView({block: 'center'});", element.locate()
+            "arguments[0].scrollIntoView({block: 'center', inline: 'center'});",
+            element.locate(),
         )
 
     @allure.step("Прокручиваем страницу к блоку Other services for you")

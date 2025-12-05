@@ -22,19 +22,20 @@ class D2CPageSelene:
         self.block_website_packages_more = WebSitePackagesBlockSelene()
         self.scroll_element = ScrollElement()
         self.block_other_services = BlockOtherServices()
-        self.services_page = config.pages["d2c_page"]["url_page"]
+        self.d2c_page = config.pages["d2c_page"]["url_page"]
 
     @allure.step("Открываем страницу из блока 'Website Packages'")
     def open_page_from_website_packages_block_by_index(self, value):
         self.scroll_element.scroll_to_element("(//*[@class='team-card'])", value)
         self.cookie_modal.close_modal()
+        self.scroll_element.scroll_to_element("(//*[@class='team-card'])", value)
         more_buttons = self.block_website_packages_more.button_website_packages_more()
         more_buttons[value - 1].click()
 
     @allure.step("Открываем главную страницу")
     def open_page(self):
         """Открывает главную страницу сайта."""
-        browser.open(self.base_url + self.services_page)
+        browser.open(self.base_url + self.d2c_page)
 
     @allure.step("Проверяем URL и заголовок страницы")
     def check_page_url_and_title(self, page_name, title_page):
@@ -48,13 +49,16 @@ class D2CPageSelene:
     def open_page_from_project_block_by_index(self, value):
         self.scroll_element.scroll_to_element("(//*[@class='projects-item'])", value)
         self.cookie_modal.close_modal()
+        self.scroll_element.scroll_to_element("(//*[@class='projects-item'])", value)
         more_buttons = self.block_project.button_project()
         more_buttons[value - 1].click()
 
     def open_page_from_other_services_by_index(self, value):
         # self.scroll_element.scroll_to_element("(//*[@class='services-slider__card']//a)", value)
         self.scroll_element.scroll_element_to_center()
-        #
         self.cookie_modal.close_modal()
+        self.scroll_element.scroll_element_to_center()
+        #
+
         more_buttons = self.block_other_services.button_other_services_more()
         more_buttons[value - 1].click()

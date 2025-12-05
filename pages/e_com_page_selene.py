@@ -36,6 +36,7 @@ class EComPageSelene:
     def open_page_from_project_block_by_index(self, value):
         self.scroll_element.scroll_to_element("(//*[@class='projects-item'])", value)
         self.cookie_modal.close_modal()
+        self.scroll_element.scroll_to_element("(//*[@class='projects-item'])", value)
         more_buttons = self.block_project.button_project()
         more_buttons[value - 1].click()
 
@@ -50,7 +51,7 @@ class EComPageSelene:
     def open_page_from_other_services_by_index(self, value):
         # self.scroll_element.scroll_to_element("(//*[@class='services-slider__card']//a)", value)
         self.scroll_element.scroll_element_to_center()
-        #
         self.cookie_modal.close_modal()
+        self.scroll_element.scroll_element_to_center()
         more_buttons = self.block_other_services.button_other_services_more()
         more_buttons[value - 1].click()

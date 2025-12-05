@@ -1,5 +1,6 @@
 import allure
 from selene import browser, have
+from selenium.webdriver.common.by import By
 
 from config import config
 from page_elements.block_project_element import BlockProjectElement
@@ -30,8 +31,10 @@ class MainPageSelene:
 
     @allure.step("Открываем {value} из блока 'Project'")
     def open_page_from_project_block_by_index(self, value):
+        browser.element((By.TAG_NAME, "body")).click()
         self.scroll_element.scroll_to_element("(//*[@class='projects-item'])", value)
         self.cookie_modal.close_modal()
+        self.scroll_element.scroll_to_element("(//*[@class='projects-item'])", value)
         more_buttons = self.block_project.button_project()
         more_buttons[value - 1].click()
 

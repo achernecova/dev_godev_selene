@@ -35,6 +35,7 @@ class ReactPageSelene:
     def open_page_from_other_services_by_index(self, value):
         self.scroll_element.scroll_element_to_center()
         self.cookie_modal.close_modal()
+        self.scroll_element.scroll_element_to_center()
         more_buttons = self.block_other_services.button_other_services_more()
         more_buttons[value - 1].click()
 
