@@ -96,10 +96,10 @@ def driver(request):
     browser.config.driver_remote_url = f"https://{login}:{password}@{host_selenoid}"
     browser.config.driver_options = options
     browser.config.timeout = 6
-    browser.driver.maximize_window()
 
     yield
 
+    browser.driver.maximize_window()
     attach.add_screenshot(browser)
     attach.add_logs(browser)
     attach.add_html(browser)
