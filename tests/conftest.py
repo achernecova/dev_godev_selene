@@ -86,7 +86,7 @@ def driver(request):
     options = Options()
     options.set_capability("browserName", "chrome")
     options.set_capability("browserVersion", _browserVersion)
-    options.add_argument("--window-size=1280,900")
+    # options.add_argument("--window-size=1280,900")
     options.set_capability("selenoid:options", {"enableVNC": True, "enableVideo": True})
 
     login = os.getenv("LOGIN")
@@ -96,9 +96,10 @@ def driver(request):
     browser.config.driver_remote_url = f"https://{login}:{password}@{host_selenoid}"
     browser.config.driver_options = options
     browser.config.timeout = 6
+    browser.driver.maximize_window()
 
     yield
-    browser.driver.maximize_window()
+
     attach.add_screenshot(browser)
     attach.add_logs(browser)
     attach.add_html(browser)
