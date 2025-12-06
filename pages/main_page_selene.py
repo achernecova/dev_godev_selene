@@ -42,6 +42,7 @@ class MainPageSelene:
     def open_page_from_website_packages_block_by_index(self, value):
         self.scroll_element.scroll_to_element("(//*[@class='team-card'])", value)
         self.cookie_modal.close_modal()
+        self.scroll_element.scroll_to_element("(//*[@class='team-card'])", value)
         more_buttons = self.block_website_packages_more.button_website_packages_more()
         more_buttons[value - 1].click()
 
