@@ -73,7 +73,7 @@ class PopupFormRequests:
         )
         for char in comment_text:
             element.type(char)
-            time.sleep(0.05)  # Задержка в 0.1 секунды между вводом символов
+            time.sleep(0.05)  # Задержка в 0.05 секунды между вводом символов
 
     @staticmethod
     def click_button():
@@ -239,10 +239,8 @@ class PopupFormRequests:
             if not os.path.exists(file_path):
                 raise FileNotFoundError(f"Файл {file_path} не существует")
         files_to_attach = "\n".join(file_paths)
-
         # Прикрепляем все файлы за один вызов
         field_file.send_keys(files_to_attach)
-        sleep(10)
 
     def add_file_incorrect_format_in_popup(self, value):
         self.input_email()
@@ -289,4 +287,3 @@ class PopupFormRequests:
             print("Ошибка появилась корректная")
         else:
             print("Ошибка некорректная!")
-
