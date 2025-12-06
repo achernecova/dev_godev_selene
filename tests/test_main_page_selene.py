@@ -208,10 +208,11 @@ def test_page_meta_data(driver_setup):
 #         page.popup_requests.popup_success_assert()
 
 @allure.tag("critical")
+@allure.tag("positive")
 @allure.severity(Severity.CRITICAL)
 @allure.label("owner", "chernetsova")
 @allure.feature("Позитивный кейс отправки заявки")
-@allure.story("Отправка полностью заполненной формы обратной связи из баннера")
+# @allure.story("Отправка полностью заполненной формы обратной связи из баннера")
 @allure.title("Отправка полностью заполненной формы обратной связи из баннера")
 @allure.link("https://godev.agency/", name="Testing")
 def test_main_request_in_button_banner():
@@ -232,10 +233,11 @@ def test_main_request_in_button_banner():
 
 
 @allure.tag("critical")
+@allure.tag("negative")
 @allure.severity(Severity.CRITICAL)
 @allure.label("owner", "chernetsova")
 @allure.feature("Негативные кейсы отправки заявок")
-@allure.story("Отправка формы из баннера без заполнения полей - поле email")
+# @allure.story("Отправка формы из баннера без заполнения полей - поле email")
 @allure.title("Отправка формы из баннера без заполнения полей - поле email")
 @allure.link("https://godev.agency/", name="Testing")
 def test_main_page_empty_field_mail():
@@ -250,10 +252,11 @@ def test_main_page_empty_field_mail():
 
 
 @allure.tag("critical")
+@allure.tag("negative")
 @allure.severity(Severity.CRITICAL)
 @allure.label("owner", "chernetsova")
 @allure.feature("Негативные кейсы отправки заявок")
-@allure.story("Отправка формы из баннера с некорректным заполнением email")
+# @allure.story("Отправка формы из баннера с некорректным заполнением email")
 @allure.title("Отправка формы из баннера с некорректным заполнением email")
 @allure.link("https://godev.agency/", name="Testing")
 @pytest.mark.parametrize(
@@ -279,12 +282,13 @@ def test_main_page_incorrect_data_email_in_form(email_type):
 
 
 @allure.tag("critical")
+@allure.tag("negative")
 @allure.severity(Severity.CRITICAL)
 @allure.label("owner", "chernetsova")
 @allure.feature("Негативные кейсы отправки заявок")
-@allure.story(
-    "Отправка формы из баннера с некорректным заполнением поля Имя - с превышением кол-ва символов"
-)
+# @allure.story(
+#     "Отправка формы из баннера с некорректным заполнением поля Имя - с превышением кол-ва символов"
+# )
 @allure.title(
     "Отправка формы из баннера с некорректным заполнением поля Имя - с превышением кол-ва символов"
 )
@@ -304,12 +308,13 @@ def test_main_page_add_request_exceeding_number_of_characters_in_name():
 
 
 @allure.tag("critical")
+@allure.tag("negative")
 @allure.severity(Severity.CRITICAL)
 @allure.label("owner", "chernetsova")
 @allure.feature("Негативные кейсы отправки заявок")
-@allure.story(
-    "Отправка формы из баннера с некорректным заполнением поля телефон - недостаточное кол-во символов"
-)
+# @allure.story(
+#     "Отправка формы из баннера с некорректным заполнением поля телефон - недостаточное кол-во символов"
+# )
 @allure.title(
     "Отправка формы из баннера с некорректным заполнением поля телефон - недостаточное кол-во символов"
 )
@@ -330,10 +335,11 @@ def test_main_page_add_request_with_incorrect_phone():
 
 
 @allure.tag("critical")
+@allure.tag("negative")
 @allure.severity(Severity.CRITICAL)
 @allure.label("owner", "chernetsova")
 @allure.feature("Негативные кейсы отправки заявок")
-@allure.story("Отправка формы из баннера c большим кол-вом файлов")
+# @allure.story("Отправка формы из баннера c большим кол-вом файлов")
 @allure.title("Отправка формы из баннера c большим кол-вом файлов")
 @allure.link("https://godev.agency/", name="Testing")
 def test_main_page_add_request_with_add_11_files():
@@ -352,10 +358,11 @@ def test_main_page_add_request_with_add_11_files():
 
 
 @allure.tag("critical")
+@allure.tag("negative")
 @allure.severity(Severity.CRITICAL)
 @allure.label("owner", "chernetsova")
 @allure.feature("Негативные кейсы отправки заявок")
-@allure.story("Отправка формы из баннера с прикреплением некорректных файлов")
+# @allure.story("Отправка формы из баннера с прикреплением некорректных файлов")
 @allure.title("Отправка формы из баннера с прикреплением некорректных файлов")
 @allure.link("https://godev.agency/", name="Testing")
 @pytest.mark.parametrize(
