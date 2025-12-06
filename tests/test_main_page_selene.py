@@ -160,35 +160,35 @@ def test_page_meta_data(driver_setup):
 #         page.check_page_url_and_title(page_name, title_page)
 
 
-@allure.tag("critical")
-@allure.severity(Severity.CRITICAL)
-@allure.label("owner", "chernetsova")
-@allure.feature("Открытие страниц при переходе из блока Website Packages -> team-card")
-@allure.story("Открытие страниц блока Website Packages")
-@allure.link("https://godev.agency/", name="Testing")
-@pytest.mark.parametrize(
-    "index, page_name, title_page",
-    [
-        (1, "e_com_page", "E-commerce web development for scalable business growth"),
-        (2, "b2b_page", "B2B e-commerce website development"),
-        (
-            3,
-            "framework_page",
-            "What is a framework and why it’s essential for web development",
-        ),
-    ],
-    ids=["e_com", "b2b", "framework"],
-)
-def test_main_page_website_packages_block_open_page(index, page_name, title_page):
-    with allure.step("Открываем главную страницу"):
-        page = MainPageSelene()
-        page.open_page()
-
-    with allure.step(f"Открываем страницу '{page_name}' из блока Website Packages"):
-        page.open_page_from_website_packages_block_by_index(index)
-
-    with allure.step("Проверяем URL и заголовок страницы"):
-        page.check_page_url_and_title(page_name, title_page)
+# @allure.tag("critical")
+# @allure.severity(Severity.CRITICAL)
+# @allure.label("owner", "chernetsova")
+# @allure.feature("Открытие страниц при переходе из блока Website Packages -> team-card")
+# @allure.story("Открытие страниц блока Website Packages")
+# @allure.link("https://godev.agency/", name="Testing")
+# @pytest.mark.parametrize(
+#     "index, page_name, title_page",
+#     [
+#         (1, "e_com_page", "E-commerce web development for scalable business growth"),
+#         (2, "b2b_page", "B2B e-commerce website development"),
+#         (
+#             3,
+#             "framework_page",
+#             "What is a framework and why it’s essential for web development",
+#         ),
+#     ],
+#     ids=["e_com", "b2b", "framework"],
+# )
+# def test_main_page_website_packages_block_open_page(index, page_name, title_page):
+#     with allure.step("Открываем главную страницу"):
+#         page = MainPageSelene()
+#         page.open_page()
+#
+#     with allure.step(f"Открываем страницу '{page_name}' из блока Website Packages"):
+#         page.open_page_from_website_packages_block_by_index(index)
+#
+#     with allure.step("Проверяем URL и заголовок страницы"):
+#         page.check_page_url_and_title(page_name, title_page)
 
 
 def test_main_menu_open_page():

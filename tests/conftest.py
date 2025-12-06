@@ -87,6 +87,7 @@ def driver(request):
     options.set_capability("browserName", "chrome")
     options.set_capability("browserVersion", _browserVersion)
     # options.add_argument("--window-size=1280,900")
+    options.add_argument("--start-maximized")
     options.set_capability("selenoid:options", {"enableVNC": True, "enableVideo": True})
 
     login = os.getenv("LOGIN")
@@ -99,7 +100,7 @@ def driver(request):
 
     yield
 
-    browser.driver.maximize_window()
+    # browser.driver.maximize_window()
     attach.add_screenshot(browser)
     attach.add_logs(browser)
     attach.add_html(browser)
