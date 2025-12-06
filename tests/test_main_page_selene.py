@@ -222,6 +222,7 @@ def test_main_request_in_button_banner():
     with allure.step("Открываем popup из баннера"):
         page.popup_requests.open_popup_in_banner()
     with allure.step("Заполняем форму корректными данными"):
+        page.popup_requests.click_topping_random()
         page.popup_requests.input_name()
         page.popup_requests.input_email()
         page.popup_requests.input_phone()

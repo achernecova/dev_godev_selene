@@ -24,7 +24,7 @@ class PopupFormRequests:
         browser.element(".right .button").click()
 
     @staticmethod
-    @allure.step("Выбрать случайное количество топпингов")
+    # @allure.step("Выбрать случайное количество топпингов")
     def click_topping_random():
         selected_indexes = random.sample(
             range(1, 7), random.randint(1, 6)
@@ -217,7 +217,6 @@ class PopupFormRequests:
 
         # Прикрепляем все файлы за один вызов
         field_file.send_keys(files_to_attach)
-        sleep(10)
 
     @allure.step("Крепим 5 файлов")
     def add_5_file_in_popup(self):
