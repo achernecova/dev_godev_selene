@@ -48,7 +48,6 @@ class PopupFormRequests:
             name_text
         )
 
-    @allure.step("Ввод данных в поле Имя с превышением символов")
     def input_name_in_banner_with_excess(self):
         name_text = self.constant + self.name_data.text(max_nb_chars=350)
         browser.element("//*[contains(@class, ' sendmail-popup')]//*[@name='name']").type(
@@ -85,7 +84,6 @@ class PopupFormRequests:
         element = browser.element("//*[@class='sendmail-popup success']")
         element.should(be.visible)
 
-    @allure.step("Ввод 3 символов в поле номера телефона")
     def input_3_characters_in_field_phone(self):
         self.input_email()
         char_phone = random.randint(100, 999)
@@ -94,7 +92,6 @@ class PopupFormRequests:
         ).type(char_phone)
 
     @staticmethod
-    @allure.step("Проверяем сообщение об ошибке поля email при полном незаполнении формы")
     def get_text_error_in_form_popup():
         error_element = (
             browser.element(
@@ -108,7 +105,6 @@ class PopupFormRequests:
         else:
             print("Ошибка некорректная!")
 
-    @allure.step("Ввод email")
     def input_email_in_banner(self, email_type="correct", custom_email=None):
         """
         Ввод email в баннер
@@ -135,7 +131,6 @@ class PopupFormRequests:
         return email_text
 
     @staticmethod
-    @allure.step("Проверяем сообщение об ошибке для поля email")
     def get_email_error_message(value):
         """
         Проверяет сообщение об ошибке для поля email
@@ -169,9 +164,6 @@ class PopupFormRequests:
             return False
 
     @staticmethod
-    @allure.step(
-        "Проверяем сообщение об ошибке при некорректном заполнении поля phone - ввод недостаточного кол-ва символов"
-    )
     def get_text_error_in_input_incorrect_phone():
         error_element = (
             browser.element(
@@ -202,7 +194,6 @@ class PopupFormRequests:
         # крепим файл
         field_file.send_keys(file_path)
 
-    @allure.step("Крепим 11 файлов")
     def add_eleven_file_in_popup(self):
         self.input_email()
         current_dir = os.path.dirname(os.path.abspath(__file__))
@@ -254,15 +245,11 @@ class PopupFormRequests:
         field_file.send_keys(files_to_attach)
         sleep(10)
 
-    @allure.step("Крепим файл некорректного формата")
     def add_file_incorrect_format_in_popup(self, value):
         self.input_email()
         self.add_file_in_field(value)
 
     @staticmethod
-    @allure.step(
-        "Проверяем сообщение об ошибке при прикреплении некорректного файла - исполнительный файл"
-    )
     def get_text_error_file_incorrect_format_in_banner(name_value, value):
         if name_value == "new text.txt" or name_value == "file-txt-5KB.txt":
             error_element = (
@@ -289,7 +276,6 @@ class PopupFormRequests:
             print("Ошибка некорректная!")
 
     @staticmethod
-    @allure.step("Проверяем сообщение об ошибке при прикреплении кол-ва файлов больше 10")
     def get_text_error_in_11_files():
         error_element = (
             browser.element(
@@ -305,19 +291,3 @@ class PopupFormRequests:
         else:
             print("Ошибка некорректная!")
 
-    @staticmethod
-    @allure.step("Проверяем сообщение об ошибке при прикреплении кол-ва файлов больше 10")
-    def get_text_error_in_11_files():
-        error_element = (
-            browser.element(
-                (By.XPATH, "//*[@class='file-error' and @style= 'display: flex;']")
-            )
-            .with_(timeout=browser.config.timeout * 2)
-            .should(be.visible)
-        )
-        if error_element.matching(
-            have.text("Failed to upload files(s). The number of files exceeded")
-        ):
-            print("Ошибка появилась корректная")
-        else:
-            print("Ошибка некорректная!")

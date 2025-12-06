@@ -33,13 +33,13 @@ def test_page_meta_data(driver_setup):
                 with allure.step(f"Проверка description страницы {page_name}"):
                     actual_description = MetaDataElements.get_meta_description()
                     assert (
-                        actual_description == description
+                            actual_description == description
                     ), f"Ошибка в description для страницы {page_name}: ожидалось '{description}', получено '{actual_description}'"
 
                 with allure.step(f"Проверка canonical страницы {page_name}"):
                     actual_canonical = MetaDataElements.get_canonical_url()
                     assert (
-                        actual_canonical == url
+                            actual_canonical == url
                     ), f"Ошибка в canonical для страницы {page_name}: ожидалось '{url}', получено '{actual_canonical}'"
 
             except Exception as e:
@@ -248,6 +248,7 @@ def test_main_page_empty_field_mail():
         main_page_test.popup_requests.open_popup_in_banner()
     with allure.step("Жмем на кнопку Get in touch"):
         main_page_test.popup_requests.click_button()
+    with allure.step("Проверяем сообщение об ошибке поля email при полном незаполнении формы"):
         main_page_test.popup_requests.get_text_error_in_form_popup()
 
 
@@ -275,10 +276,12 @@ def test_main_page_incorrect_data_email_in_form(email_type):
         page.open_page()
     with allure.step("Открываем popup из баннера"):
         page.popup_requests.open_popup_in_banner()
-    page.popup_requests.input_email_in_banner(email_type)
+    with allure.step("Ввод email"):
+        page.popup_requests.input_email_in_banner(email_type)
     with allure.step("Жмем на кнопку Get in touch"):
         page.popup_requests.click_button()
-    page.popup_requests.get_email_error_message(email_type)
+    with allure.step("Проверяем сообщение об ошибке для поля email"):
+        page.popup_requests.get_email_error_message(email_type)
 
 
 @allure.tag("critical")
@@ -297,14 +300,18 @@ def test_main_page_add_request_exceeding_number_of_characters_in_name():
     with allure.step("Открываем главную страницу"):
         page = MainPageSelene()
         page.open_page()
+
     with allure.step("Открываем popup из баннера"):
         page.popup_requests.open_popup_in_banner()
 
-    page.popup_requests.input_name_in_banner_with_excess()
+    with allure.step("Ввод данных в поле Имя с превышением символов"):
+        page.popup_requests.input_name_in_banner_with_excess()
 
     with allure.step("Жмем на кнопку Get in touch"):
         page.popup_requests.click_button()
-    page.popup_requests.get_text_error_in_form_popup()
+
+    with allure.step("Проверяем сообщение об ошибке поля email при полном незаполнении формы"):
+        page.popup_requests.get_text_error_in_form_popup()
 
 
 @allure.tag("critical")
@@ -326,12 +333,16 @@ def test_main_page_add_request_with_incorrect_phone():
     with allure.step("Открываем popup из баннера"):
         page.popup_requests.open_popup_in_banner()
 
-    page.popup_requests.input_3_characters_in_field_phone()
-    page.popup_requests.input_comment()
+    with allure.step("Ввод 3 символа в поле номера телефона"):
+        page.popup_requests.input_3_characters_in_field_phone()
+        page.popup_requests.input_comment()
 
     with allure.step("Жмем на кнопку Get in touch"):
         page.popup_requests.click_button()
-    page.popup_requests.get_text_error_in_input_incorrect_phone()
+    with allure.step(
+            "Проверяем сообщение об ошибке при некорректном заполнении поля phone - ввод недостаточного кол-ва символов"
+    ):
+        page.popup_requests.get_text_error_in_input_incorrect_phone()
 
 
 @allure.tag("critical")
@@ -349,12 +360,14 @@ def test_main_page_add_request_with_add_11_files():
     with allure.step("Открываем popup из баннера"):
         page.popup_requests.open_popup_in_banner()
 
-    page.popup_requests.input_comment()
-    page.popup_requests.add_eleven_file_in_popup()
+    with allure.step("Крепим 11 файлов"):
+        page.popup_requests.input_comment()
+        page.popup_requests.add_eleven_file_in_popup()
 
     with allure.step("Жмем на кнопку Get in touch"):
         page.popup_requests.click_button()
-    page.popup_requests.get_text_error_in_11_files()
+    with allure.step("Проверяем сообщение об ошибке при прикреплении кол-ва файлов больше 10"):
+        page.popup_requests.get_text_error_in_11_files()
 
 
 @allure.tag("critical")
@@ -382,11 +395,11 @@ def test_main_page_add_incorrect_format_file(file_name, error_text):
     with allure.step("Открываем popup из баннера"):
         page.popup_requests.open_popup_in_banner()
 
-    page.popup_requests.input_comment()
-    page.popup_requests.add_file_incorrect_format_in_popup(file_name)
+    with allure.step("Крепим файл некорректного формата"):
+        page.popup_requests.input_comment()
+        page.popup_requests.add_file_incorrect_format_in_popup(file_name)
 
     with allure.step("Жмем на кнопку Get in touch"):
         page.popup_requests.click_button()
-    page.popup_requests.get_text_error_file_incorrect_format_in_banner(
-        file_name, error_text
-    )
+    with allure.step("Проверяем сообщение об ошибке при прикреплении некорректного файла"):
+        page.popup_requests.get_text_error_file_incorrect_format_in_banner(file_name, error_text)
