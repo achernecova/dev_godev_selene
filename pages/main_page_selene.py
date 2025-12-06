@@ -58,6 +58,7 @@ class MainPageSelene:
     def open_page_from_services_block_by_index(self, value):
         self.scroll_element.scroll_to_element("(//*[@class='service-item']//a)", value)
         self.cookie_modal.close_modal()
+        self.scroll_element.scroll_to_element("(//*[@class='service-item']//a)", value)
         more_buttons = self.service_item_block_card_more.more_buttons()
         more_buttons[value - 1].click()
 

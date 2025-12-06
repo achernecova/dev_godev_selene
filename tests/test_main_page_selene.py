@@ -217,20 +217,20 @@ def test_main_page_website_packages_block_open_page(index, page_name, title_page
 @allure.link("https://godev.agency/", name="Testing")
 def test_main_request_in_button_banner():
     with allure.step("Открываем главную страницу"):
-        page = MainPageSelene()
-        page.open_page()
+        main_page_test = MainPageSelene()
+        main_page_test.open_page()
     with allure.step("Открываем popup из баннера"):
-        page.popup_requests.open_popup_in_banner()
+        main_page_test.popup_requests.open_popup_in_banner()
     with allure.step("Заполняем форму корректными данными"):
-        page.popup_requests.click_topping_random()
-        page.popup_requests.input_name()
-        page.popup_requests.input_email()
-        page.popup_requests.input_phone()
-        page.popup_requests.input_comment()
+        main_page_test.popup_requests.click_topping_random()
+        main_page_test.popup_requests.input_name()
+        main_page_test.popup_requests.input_email()
+        main_page_test.popup_requests.input_phone()
+        main_page_test.popup_requests.input_comment()
     with allure.step("Жмем на кнопку Get in touch"):
-        page.popup_requests.click_button()
+        main_page_test.popup_requests.click_button()
     with allure.step("Проверяем появление окна успешности отправки заявки"):
-        page.popup_requests.popup_success_assert()
+        main_page_test.popup_requests.popup_success_assert()
 
 
 @allure.tag("critical")
