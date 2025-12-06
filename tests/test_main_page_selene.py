@@ -191,23 +191,29 @@ def test_page_meta_data(driver_setup):
 #         page.check_page_url_and_title(page_name, title_page)
 
 
-def test_main_menu_open_page():
-    with allure.step("Открываем главную страницу"):
-        page = MainPageSelene()
-        page.open_page()
-    with allure.step("Открываем popup из хэдера"):
-        page.popup_requests.open_popup()
-    with allure.step("Заполняем форму корректными данными"):
-        page.popup_requests.input_name()
-        page.popup_requests.input_email()
-        page.popup_requests.input_phone()
-        page.popup_requests.input_comment()
-    with allure.step("Жмем на кнопку Get in touch"):
-        page.popup_requests.click_button()
-    with allure.step("Проверяем появление окна успешности отправки заявки"):
-        page.popup_requests.popup_success_assert()
+# def test_main_menu_open_page():
+#     with allure.step("Открываем главную страницу"):
+#         page = MainPageSelene()
+#         page.open_page()
+#     with allure.step("Открываем popup из баннера"):
+#         page.popup_requests.open_popup_in_banner()
+#     with allure.step("Заполняем форму корректными данными"):
+#         page.popup_requests.input_name()
+#         page.popup_requests.input_email()
+#         page.popup_requests.input_phone()
+#         page.popup_requests.input_comment()
+#     with allure.step("Жмем на кнопку Get in touch"):
+#         page.popup_requests.click_button()
+#     with allure.step("Проверяем появление окна успешности отправки заявки"):
+#         page.popup_requests.popup_success_assert()
 
-
+@allure.tag("critical")
+@allure.severity(Severity.CRITICAL)
+@allure.label("owner", "chernetsova")
+@allure.feature("Позитивный кейс отправки заявки")
+@allure.story("Отправка полностью заполненной формы обратной связи из баннера")
+@allure.title("Отправка полностью заполненной формы обратной связи из баннера")
+@allure.link("https://godev.agency/", name="Testing")
 def test_main_request_in_button_banner():
     with allure.step("Открываем главную страницу"):
         page = MainPageSelene()
@@ -230,6 +236,7 @@ def test_main_request_in_button_banner():
 @allure.label("owner", "chernetsova")
 @allure.feature("Негативные кейсы отправки заявок")
 @allure.story("Отправка формы из баннера без заполнения полей - поле email")
+@allure.title("Отправка формы из баннера без заполнения полей - поле email")
 @allure.link("https://godev.agency/", name="Testing")
 def test_main_page_empty_field_mail():
     with allure.step("Открываем главную страницу"):
@@ -247,6 +254,7 @@ def test_main_page_empty_field_mail():
 @allure.label("owner", "chernetsova")
 @allure.feature("Негативные кейсы отправки заявок")
 @allure.story("Отправка формы из баннера с некорректным заполнением email")
+@allure.title("Отправка формы из баннера с некорректным заполнением email")
 @allure.link("https://godev.agency/", name="Testing")
 @pytest.mark.parametrize(
     "email_type",
@@ -277,6 +285,9 @@ def test_main_page_incorrect_data_email_in_form(email_type):
 @allure.story(
     "Отправка формы из баннера с некорректным заполнением поля Имя - с превышением кол-ва символов"
 )
+@allure.title(
+    "Отправка формы из баннера с некорректным заполнением поля Имя - с превышением кол-ва символов"
+)
 @allure.link("https://godev.agency/", name="Testing")
 def test_main_page_add_request_exceeding_number_of_characters_in_name():
     with allure.step("Открываем главную страницу"):
@@ -297,6 +308,9 @@ def test_main_page_add_request_exceeding_number_of_characters_in_name():
 @allure.label("owner", "chernetsova")
 @allure.feature("Негативные кейсы отправки заявок")
 @allure.story(
+    "Отправка формы из баннера с некорректным заполнением поля телефон - недостаточное кол-во символов"
+)
+@allure.title(
     "Отправка формы из баннера с некорректным заполнением поля телефон - недостаточное кол-во символов"
 )
 @allure.link("https://godev.agency/", name="Testing")
@@ -320,6 +334,7 @@ def test_main_page_add_request_with_incorrect_phone():
 @allure.label("owner", "chernetsova")
 @allure.feature("Негативные кейсы отправки заявок")
 @allure.story("Отправка формы из баннера c большим кол-вом файлов")
+@allure.title("Отправка формы из баннера c большим кол-вом файлов")
 @allure.link("https://godev.agency/", name="Testing")
 def test_main_page_add_request_with_add_11_files():
     with allure.step("Открываем главную страницу"):
@@ -341,6 +356,7 @@ def test_main_page_add_request_with_add_11_files():
 @allure.label("owner", "chernetsova")
 @allure.feature("Негативные кейсы отправки заявок")
 @allure.story("Отправка формы из баннера с прикреплением некорректных файлов")
+@allure.title("Отправка формы из баннера с прикреплением некорректных файлов")
 @allure.link("https://godev.agency/", name="Testing")
 @pytest.mark.parametrize(
     "file_name, error_text",

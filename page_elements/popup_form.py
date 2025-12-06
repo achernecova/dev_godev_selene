@@ -185,8 +185,9 @@ class PopupFormRequests:
         else:
             print("Ошибка некорректная!")
 
-    @allure.step("Определение пути файла и прикрепление к форме")
-    def add_file_in_field(self, file):
+    # @allure.step("Определение пути файла и прикрепление к форме")
+    @staticmethod
+    def add_file_in_field(file):
         current_dir = os.path.dirname(os.path.abspath(__file__))
         add_file_in_popup_locator = (
             By.XPATH,
