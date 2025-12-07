@@ -1,6 +1,12 @@
+from time import sleep
+
 import allure
-from selene import browser, have
+from selene import browser, have, be
+from selenium.webdriver.support.wait import WebDriverWait
+from selene.support.shared import browser
 from selenium.webdriver.common.by import By
+from selenium.webdriver.support import expected_conditions as EC
+
 
 from config import config
 from page_elements.block_project_element import BlockProjectElement
@@ -46,6 +52,15 @@ class MainPageSelene:
         more_buttons = self.block_website_packages_more.button_website_packages_more()
         more_buttons[value - 1].click()
 
+    @allure.step("Открываем страницу из блока 'Website Packages'")
+    def open_page_from_website_packages_block_by_index_new(self, value):
+        # self.scroll_element.scroll_to_element("(//*[@class='team-card']//a)", value)
+        self.cookie_modal.close_modal()
+        self.scroll_element.search_element_website_packages(value)
+        more_buttons = self.block_website_packages_more.button_website_packages_more()
+        more_buttons[value - 1].click()
+
+
     @allure.step("Проверяем URL и заголовок страницы")
     def check_page_url_and_title(self, page_name, title_page):
         current_page_data = config.get_page_data(page_name)
@@ -64,3 +79,4 @@ class MainPageSelene:
 
     def open_page(self):
         browser.open(self.base_url)
+
