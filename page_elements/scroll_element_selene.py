@@ -42,7 +42,7 @@ class ScrollElement:
             """
             return browser.driver.execute_script(js, elem)
 
-        # Снимаем фокус с текущего элемента
+        # Снимаем фокус с текущего элемента. Без этого костыля - не работает!!!
         browser.element((By.TAG_NAME, "body")).click()
 
         if index is None:
@@ -66,11 +66,12 @@ class ScrollElement:
                     f"Элемент с селектором '{selector}' и индексом '{index}' не стал видимым за {timeout} секунд")
 
             # Скроллим к элементу (пример плавного скрола центрированно)
+            browser.element((By.TAG_NAME, "body")).click() # дополнительный клик (мало ли - не прогрузились js до конца)
             browser.driver.execute_script(
                 "arguments[0].scrollIntoView({block: 'center', inline: 'center'});", webelement
             )
-
             time.sleep(scroll_pause)
+
 
     @allure.step("Прокручиваем страницу к блоку Other services for you")
     def scroll_element_to_center(self):
