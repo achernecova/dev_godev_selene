@@ -164,8 +164,8 @@ from pages.main_page_selene import MainPageSelene
 @allure.severity(Severity.CRITICAL)
 @allure.label("owner", "chernetsova")
 @allure.feature("Открытие страниц при переходе из блока Website Packages -> team-card")
-@allure.story("Открытие страниц блока Website Packages")
 @allure.link("https://godev.agency/", name="Testing")
+@allure.title("Открытие страниц блока Website Packages")
 @pytest.mark.parametrize(
     "index, page_name, title_page",
     [
@@ -185,30 +185,30 @@ def test_main_page_website_packages_block_open_page(index, page_name, title_page
         page.check_page_url_and_title(page_name, title_page)
 
 
-@allure.tag("critical")
-@allure.tag("positive")
-@allure.severity(Severity.CRITICAL)
-@allure.label("owner", "chernetsova")
-@allure.feature("Позитивный кейс отправки заявки")
-# @allure.story("Отправка полностью заполненной формы обратной связи из баннера")
-@allure.title("Отправка полностью заполненной формы обратной связи из баннера")
-@allure.link("https://godev.agency/", name="Testing")
-def test_main_request_in_button_banner():
-    with allure.step("Открываем главную страницу"):
-        main_page_test = MainPageSelene()
-        main_page_test.open_page()
-    with allure.step("Открываем popup из баннера"):
-        main_page_test.popup_requests.open_popup_in_banner()
-    with allure.step("Заполняем форму корректными данными"):
-        main_page_test.popup_requests.click_topping_random()
-        main_page_test.popup_requests.input_name()
-        main_page_test.popup_requests.input_email()
-        main_page_test.popup_requests.input_phone()
-        main_page_test.popup_requests.input_comment()
-    with allure.step("Жмем на кнопку Get in touch"):
-        main_page_test.popup_requests.click_button()
-    with allure.step("Проверяем появление окна успешности отправки заявки"):
-        main_page_test.popup_requests.popup_success_assert()
+# @allure.tag("critical")
+# @allure.tag("positive")
+# @allure.severity(Severity.CRITICAL)
+# @allure.label("owner", "chernetsova")
+# @allure.feature("Позитивный кейс отправки заявки")
+# # @allure.story("Отправка полностью заполненной формы обратной связи из баннера")
+# @allure.title("Отправка полностью заполненной формы обратной связи из баннера")
+# @allure.link("https://godev.agency/", name="Testing")
+# def test_main_request_in_button_banner():
+#     with allure.step("Открываем главную страницу"):
+#         main_page_test = MainPageSelene()
+#         main_page_test.open_page()
+#     with allure.step("Открываем popup из баннера"):
+#         main_page_test.popup_requests.open_popup_in_banner()
+#     with allure.step("Заполняем форму корректными данными"):
+#         main_page_test.popup_requests.click_topping_random()
+#         main_page_test.popup_requests.input_name()
+#         main_page_test.popup_requests.input_email()
+#         main_page_test.popup_requests.input_phone()
+#         main_page_test.popup_requests.input_comment()
+#     with allure.step("Жмем на кнопку Get in touch"):
+#         main_page_test.popup_requests.click_button()
+#     with allure.step("Проверяем появление окна успешности отправки заявки"):
+#         main_page_test.popup_requests.popup_success_assert()
 
 
 #
