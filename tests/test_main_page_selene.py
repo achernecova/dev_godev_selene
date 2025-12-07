@@ -8,64 +8,64 @@ from page_elements.metadata_elements import MetaDataElements
 from pages.main_page_selene import MainPageSelene
 
 
-@allure.tag("critical")
-@allure.severity(Severity.CRITICAL)
-@allure.label("owner", "chernetsova")
-@allure.feature("Добавление метатегов на страницы")
-@allure.link("https://github.com", name="Testing")
-def test_page_meta_data():
-    error_messages = []  # Локальный список для хранения сообщений об ошибках
-
-    for page_name, page_data in config.pages.items():
-        url = page_data["url_page"]
-        title = page_data["title"]
-        description = page_data["description"]
-
-        with allure.step(f"Проверка страницы {page_name}"):
-            try:
-                with allure.step(f"Открываем страницу {url}"):
-                    browser.open(url)
-                    print(url)
-
-                with allure.step(f"Проверка title страницы {page_name}"):
-                    browser.should(have.title(title))
-
-                with allure.step(f"Проверка description страницы {page_name}"):
-                    actual_description = MetaDataElements.get_meta_description()
-                    assert (
-                            actual_description == description
-                    ), f"Ошибка в description для страницы {page_name}: ожидалось '{description}', получено '{actual_description}'"
-
-                with allure.step(f"Проверка canonical страницы {page_name}"):
-                    actual_canonical = MetaDataElements.get_canonical_url()
-                    assert (
-                            actual_canonical == url
-                    ), f"Ошибка в canonical для страницы {page_name}: ожидалось '{url}', получено '{actual_canonical}'"
-
-            except Exception as e:
-                error_message = f"Ошибка при проверке страницы {page_name}: {e}"
-                error_messages.append(
-                    error_message
-                )  # Добавляем сообщение об ошибке в локальный список
-                allure.attach(
-                    str(e),
-                    name=f"Ошибка на странице {page_name}",
-                    attachment_type=allure.attachment_type.TEXT,
-                )
-                print(error_message)
-
-    if error_messages:
-        with allure.step("Итоговый статус теста: ПРОВАЛЕН"):
-            allure.attach(
-                "\n".join(error_messages),
-                name="Все ошибки",
-                attachment_type=allure.attachment_type.TEXT,
-            )
-            pytest.fail(
-                f"Тест провален: обнаружены ошибки на следующих страницах:\n{chr(10).join(error_messages)}"
-            )
-
-
+# @allure.tag("critical")
+# @allure.severity(Severity.CRITICAL)
+# @allure.label("owner", "chernetsova")
+# @allure.feature("Добавление метатегов на страницы")
+# @allure.link("https://github.com", name="Testing")
+# def test_page_meta_data():
+#     error_messages = []  # Локальный список для хранения сообщений об ошибках
+#
+#     for page_name, page_data in config.pages.items():
+#         url = page_data["url_page"]
+#         title = page_data["title"]
+#         description = page_data["description"]
+#
+#         with allure.step(f"Проверка страницы {page_name}"):
+#             try:
+#                 with allure.step(f"Открываем страницу {url}"):
+#                     browser.open(url)
+#                     print(url)
+#
+#                 with allure.step(f"Проверка title страницы {page_name}"):
+#                     browser.should(have.title(title))
+#
+#                 with allure.step(f"Проверка description страницы {page_name}"):
+#                     actual_description = MetaDataElements.get_meta_description()
+#                     assert (
+#                             actual_description == description
+#                     ), f"Ошибка в description для страницы {page_name}: ожидалось '{description}', получено '{actual_description}'"
+#
+#                 with allure.step(f"Проверка canonical страницы {page_name}"):
+#                     actual_canonical = MetaDataElements.get_canonical_url()
+#                     assert (
+#                             actual_canonical == url
+#                     ), f"Ошибка в canonical для страницы {page_name}: ожидалось '{url}', получено '{actual_canonical}'"
+#
+#             except Exception as e:
+#                 error_message = f"Ошибка при проверке страницы {page_name}: {e}"
+#                 error_messages.append(
+#                     error_message
+#                 )  # Добавляем сообщение об ошибке в локальный список
+#                 allure.attach(
+#                     str(e),
+#                     name=f"Ошибка на странице {page_name}",
+#                     attachment_type=allure.attachment_type.TEXT,
+#                 )
+#                 print(error_message)
+#
+#     if error_messages:
+#         with allure.step("Итоговый статус теста: ПРОВАЛЕН"):
+#             allure.attach(
+#                 "\n".join(error_messages),
+#                 name="Все ошибки",
+#                 attachment_type=allure.attachment_type.TEXT,
+#             )
+#             pytest.fail(
+#                 f"Тест провален: обнаружены ошибки на следующих страницах:\n{chr(10).join(error_messages)}"
+#             )
+#
+#
 # @allure.tag("critical")
 # @allure.severity(Severity.CRITICAL)
 # @allure.label("owner", "chernetsova")
@@ -113,8 +113,8 @@ def test_page_meta_data():
 #
 #     with allure.step("Проверяем URL и заголовок страницы"):
 #         page.check_page_url_and_title(name_page, title_page)
-
-
+#
+#
 # @allure.tag("critical")
 # @allure.severity(Severity.CRITICAL)
 # @allure.label("owner", "chernetsova")
@@ -160,37 +160,6 @@ def test_page_meta_data():
 #         page.check_page_url_and_title(page_name, title_page)
 
 
-# @allure.tag("critical")
-# @allure.severity(Severity.CRITICAL)
-# @allure.label("owner", "chernetsova")
-# @allure.feature("Открытие страниц при переходе из блока Website Packages -> team-card")
-# @allure.story("Открытие страниц блока Website Packages")
-# @allure.link("https://godev.agency/", name="Testing")
-# @pytest.mark.parametrize(
-#     "index, page_name, title_page",
-#     [
-#         (1, "e_com_page", "E-commerce web development for scalable business growth"),
-#         (2, "b2b_page", "B2B e-commerce website development"),
-#         (
-#             3,
-#             "framework_page",
-#             "What is a framework and why it’s essential for web development",
-#         ),
-#     ],
-#     ids=["e_com", "b2b", "framework"],
-# )
-# def test_main_page_website_packages_block_open_page(index, page_name, title_page):
-#     with allure.step("Открываем главную страницу"):
-#         page = MainPageSelene()
-#         page.open_page()
-#
-#     with allure.step(f"Открываем страницу '{page_name}' из блока Website Packages"):
-#         page.open_page_from_website_packages_block_by_index(index)
-#
-#     with allure.step("Проверяем URL и заголовок страницы"):
-#         page.check_page_url_and_title(page_name, title_page)
-
-
 @allure.tag("critical")
 @allure.severity(Severity.CRITICAL)
 @allure.label("owner", "chernetsova")
@@ -202,46 +171,46 @@ def test_page_meta_data():
     [
         (1, "e_com_page", "E-commerce web development for scalable business growth"),
         (2, "b2b_page", "B2B e-commerce website development"),
-        (
-            3,
-            "framework_page",
-            "What is a framework and why it’s essential for web development",
-        ),
+        (3, "framework_page", "What is a framework and why it’s essential for web development"),
     ],
     ids=["e_com", "b2b", "framework"],
 )
-def test_one(index, page_name, title_page):
-    page = MainPageSelene()
-    page.open_page()
-    page.open_page_from_website_packages_block_by_index_new(index)
+def test_main_page_website_packages_block_open_page(index, page_name, title_page):
+    with allure.step("Открываем главную страницу"):
+        page = MainPageSelene()
+        page.open_page()
+    with allure.step(f"Открываем страницу '{page_name}' из блока Website Packages"):
+        page.open_page_from_website_packages_block_by_index(index)
+    with allure.step("Проверяем URL и заголовок страницы"):
+        page.check_page_url_and_title(page_name, title_page)
 
-    page.check_page_url_and_title(page_name, title_page)
+
+@allure.tag("critical")
+@allure.tag("positive")
+@allure.severity(Severity.CRITICAL)
+@allure.label("owner", "chernetsova")
+@allure.feature("Позитивный кейс отправки заявки")
+# @allure.story("Отправка полностью заполненной формы обратной связи из баннера")
+@allure.title("Отправка полностью заполненной формы обратной связи из баннера")
+@allure.link("https://godev.agency/", name="Testing")
+def test_main_request_in_button_banner():
+    with allure.step("Открываем главную страницу"):
+        main_page_test = MainPageSelene()
+        main_page_test.open_page()
+    with allure.step("Открываем popup из баннера"):
+        main_page_test.popup_requests.open_popup_in_banner()
+    with allure.step("Заполняем форму корректными данными"):
+        main_page_test.popup_requests.click_topping_random()
+        main_page_test.popup_requests.input_name()
+        main_page_test.popup_requests.input_email()
+        main_page_test.popup_requests.input_phone()
+        main_page_test.popup_requests.input_comment()
+    with allure.step("Жмем на кнопку Get in touch"):
+        main_page_test.popup_requests.click_button()
+    with allure.step("Проверяем появление окна успешности отправки заявки"):
+        main_page_test.popup_requests.popup_success_assert()
 
 
-# @allure.tag("critical")
-# @allure.tag("positive")
-# @allure.severity(Severity.CRITICAL)
-# @allure.label("owner", "chernetsova")
-# @allure.feature("Позитивный кейс отправки заявки")
-# # @allure.story("Отправка полностью заполненной формы обратной связи из баннера")
-# @allure.title("Отправка полностью заполненной формы обратной связи из баннера")
-# @allure.link("https://godev.agency/", name="Testing")
-# def test_main_request_in_button_banner():
-#     with allure.step("Открываем главную страницу"):
-#         main_page_test = MainPageSelene()
-#         main_page_test.open_page()
-#     with allure.step("Открываем popup из баннера"):
-#         main_page_test.popup_requests.open_popup_in_banner()
-#     with allure.step("Заполняем форму корректными данными"):
-#         main_page_test.popup_requests.click_topping_random()
-#         main_page_test.popup_requests.input_name()
-#         main_page_test.popup_requests.input_email()
-#         main_page_test.popup_requests.input_phone()
-#         main_page_test.popup_requests.input_comment()
-#     with allure.step("Жмем на кнопку Get in touch"):
-#         main_page_test.popup_requests.click_button()
-#     with allure.step("Проверяем появление окна успешности отправки заявки"):
-#         main_page_test.popup_requests.popup_success_assert()
 #
 #
 # @allure.tag("critical")

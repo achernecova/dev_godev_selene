@@ -1,12 +1,6 @@
-from time import sleep
-
 import allure
-from selene import browser, have, be
-from selenium.webdriver.support.wait import WebDriverWait
+from selene import browser, have
 from selene.support.shared import browser
-from selenium.webdriver.common.by import By
-from selenium.webdriver.support import expected_conditions as EC
-
 
 from config import config
 from page_elements.block_project_element import BlockProjectElement
@@ -37,29 +31,17 @@ class MainPageSelene:
 
     @allure.step("Открываем {value} из блока 'Project'")
     def open_page_from_project_block_by_index(self, value):
-        browser.element((By.TAG_NAME, "body")).click()
-        self.scroll_element.scroll_to_element("(//*[@class='projects-item'])", value)
         self.cookie_modal.close_modal()
-        self.scroll_element.scroll_to_element("(//*[@class='projects-item'])", value)
+        self.scroll_element.search_element_website_packages("(//*[@class='projects-item'])", value)
         more_buttons = self.block_project.button_project()
         more_buttons[value - 1].click()
 
     @allure.step("Открываем страницу из блока 'Website Packages'")
     def open_page_from_website_packages_block_by_index(self, value):
-        # self.scroll_element.scroll_to_element("(//*[@class='team-card']//a)", value)
         self.cookie_modal.close_modal()
-        self.scroll_element.scroll_to_element("(//*[@class='team-card']//a)", value)
+        self.scroll_element.search_element_website_packages("(//*[@class='team-card']//a)", value)
         more_buttons = self.block_website_packages_more.button_website_packages_more()
         more_buttons[value - 1].click()
-
-    @allure.step("Открываем страницу из блока 'Website Packages'")
-    def open_page_from_website_packages_block_by_index_new(self, value):
-        # self.scroll_element.scroll_to_element("(//*[@class='team-card']//a)", value)
-        self.cookie_modal.close_modal()
-        self.scroll_element.search_element_website_packages(value)
-        more_buttons = self.block_website_packages_more.button_website_packages_more()
-        more_buttons[value - 1].click()
-
 
     @allure.step("Проверяем URL и заголовок страницы")
     def check_page_url_and_title(self, page_name, title_page):
@@ -71,12 +53,10 @@ class MainPageSelene:
 
     @allure.step("Открываем страницу из блока 'Services'")
     def open_page_from_services_block_by_index(self, value):
-        self.scroll_element.scroll_to_element("(//*[@class='service-item']//a)", value)
         self.cookie_modal.close_modal()
-        self.scroll_element.scroll_to_element("(//*[@class='service-item']//a)", value)
+        self.scroll_element.search_element_website_packages("(//*[@class='service-item']//a)", value)
         more_buttons = self.service_item_block_card_more.more_buttons()
         more_buttons[value - 1].click()
 
     def open_page(self):
         browser.open(self.base_url)
-

@@ -1,5 +1,3 @@
-import time
-
 import allure
 from allure_commons.types import AttachmentType
 from selene import browser, be, by
@@ -42,12 +40,11 @@ class ScrollElement:
         element.with_(timeout=timeout).should(be.in_dom)
 
         # Программно пролистываем страницу к элементу
-        browser.driver.execute_script("arguments[0].scrollIntoView({behavior:'smooth', block:'center'});", element.locate())
+        browser.driver.execute_script("arguments[0].scrollIntoView({behavior:'smooth', block:'center'});",
+                                      element.locate())
 
         # # Ждём полное отображение элемента и кликаем
         # element.with_(timeout=timeout).should(be.visible).click()
-
-
 
     @allure.step("Прокручиваем страницу к блоку Other services for you")
     def scroll_element_to_center(self):
@@ -58,37 +55,17 @@ class ScrollElement:
             element.locate(),
         )
 
-
-        # Ждём завершения прокрутки
+    # Ждём завершения прокрутки
     @staticmethod
     def stop_scroll_condition():
         position = browser.driver.execute_script("return window.scrollY;")
         return position % 1 == 0  # Целочисленность свидетельствует о завершении прокрутки
 
-
-    def search_element_website_packages(self, value):
-
+    def search_element_website_packages(self, selector, value):
         # Получаем элемент
-        element_website_packages = browser.element(f"(//*[@class='team-card']//a)[{value}]")
-        #
-        # # Проверяем наличие элемента в DOM с удвоенным таймаутом
-        # if element_website_packages.with_(timeout=browser.config.timeout * 2).should(be.present):
-        #     print("Элемент есть в дом-дереве.")
-        # else:
-        #     print("Элемента нет в дом-дереве.")
-
+        # element_website_packages = browser.element(f"(//*[@class='team-card']//a)[{value}]")
+        element_website_packages = browser.element(f"{selector}[{value}]")
         # Прокручиваем элемент в центр экрана
-        browser.driver.execute_script("arguments[0].scrollIntoView({behavior:'smooth', block:'center'});", element_website_packages())
+        browser.driver.execute_script("arguments[0].scrollIntoView({behavior:'smooth', block:'center'});",
+                                      element_website_packages())
         browser.with_(timeout=5).wait.until(self.stop_scroll_condition)
-
-        # # Ждём, пока элемент станет кликабельным
-        # if element_website_packages.with_(timeout=browser.config.timeout * 2).should(be.clickable):
-        #     print("Элемент кликабелен")
-        # else:
-        #     print("Элемент некликабелен")
-
-        # # Последняя проверка видимости
-        # if element_website_packages.with_(timeout=browser.config.timeout * 2).should(be.visible):
-        #     print("Элемент видимый.")
-        # else:
-        #     print("Элемент невидимый!")
