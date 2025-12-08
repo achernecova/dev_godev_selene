@@ -1,95 +1,103 @@
+# Фреймворк для автоматизации тестирования сайта "godev.agency"
+> <a target="_blank" href="https://godev.agency/">godev.agency</a>
 
-# Autotests GoDev
-Разработка автотестов для сайта godev. 
+![main page screenshot](page_elements/add_files_in_form_request/godev_logo.jpg)
 
-Запуск автотестов: python -m pytest
-Запуск автотестов с генерацией аллюр отчетов: python -m pytest --alluredir=allure-results
-и далее  allure serve allure-results
+----
 
-Для запуска тестов только с конкретной меткой (например):  pytest -m fill_form_request_footer --alluredir=allure-results 
-где fill_form_request_footer - метка @pytest.mark.fill_form_request_footer
+### Особенности проекта
 
+* Оповещения о тестовых прогонах в Telegram
+* Отчеты с видео, скриншотом, логами, исходной моделью разметки страницы
+* Сборка проекта в Jenkins
+* Отчеты Allure Report
+* Интеграция с Allure TestOps
+* Автоматизация отчетности о тестовых прогонах и тест-кейсах в Jira
+* Запуск web/UI автотестов в Selenoid
+* Запуск тестов на dev и prod контурах
 
----
-## Технологии и интеграции
-Python — основной язык программирования.
-PyTest — фреймворк для написания тестов.
-Selenium — фреймворк для автоматизации веб-тестирования.
-Allure — система для генерации отчетов.
-TestIT — платформа для управления тестированием и анализом результатов.
-Jira — инструмент управления проектами и отслеживания задач.
----
+### Список проверок, реализованных в web/UI автотестах
 
-## Подход к оформлению: 
-1. название файлов через нижнее подчеркивание
-2. название пакетов в нижнем регистре
-3. названия классов - используется CamelCase 
-4. названия переменных через нижнее подчеркивание в нижнем регистре
-5. для сохранения единообразия используем одинарные кавычки ' ' (только если есть пересечение кавычек используем двойные для избежания конфликта)
-6. для добавления документации используем """ тройные кавычки
-7. все локаторы выносятся в класс Locators и используется распаковка кортежей при вызове локаторов, чтобы избегать нагромождения. 
-ВНИМАНИЕ! Прежде чем добавить новый локатор зайди в класс Locators и проверь нет ли там нужного тебе локатора. 
-8. Для форматирования кода используем клавиши Ctrl+Alt+L
-9. Не используем конкатенацию из двух строк (logging.error('Ошибка!!! Заголовок не найден.' + stroka)), а используем общий вывод с форматированием строки через фигурные скобки logging.info(f"Заголовок на странице: '{title_text}'")
-
----
-## Жизненный цикл теста
-1. Инициализация конфигурации
-2. Запуск браузера
-3. Выполнение тестовых шагов
-4. Сбор артефактов
-5. Генерация отчета
----
-
-##  Архитектура проекта
-
-### Компоненты:
-- **conftest.py** - централизованная конфигурация
-- **base_page** - базовый класс с основными методами
-- **page_elements** - паттерн для работы с элементами страниц
-- **pages** - паттерн для работы со страницами
-- **test** - папка с тестами на созданные страницы
-- **constants.py** - константы
-- **Locators** - класс для локаторов
-- **myenv.env** - прокидываем env (для определения урлов и контуров на которых запускаем тесты)
-
-#### Json-файлы
-- **page_data.json** - выделенный файл для хранения данных из блока с буллитами, текстом и ценой (не используется)
-- **advant_section_carousel.json** - выделенный файл для хранения данных из блока карусель (advant. Используем в методе def get_data_advant_section_carousel(self, url) и def get_data_advant_section_carousel_d2c)
-- **attribute_font.json** - выделенный файл для хранения данных о шрифтах (цвет, название, размер)
-- **carousel_of_review.json** - выделенный файл для хранения данных о карусели отзывов
-- **data_card_block_packages.json** - выделенный файл для хранения данных из разных блоков (карточки, иные карусели, блоки с картинками)
-- **faq_block_data.json** - выделенный файл для хранения данных блока faq
-- **package_card_data.json** - выделенный файл для хранения данных из блока с буллитами, текстом и ценой (данные из этого файла используются в константах)
-- **section_how_it_staff_tiles.json** - выделенный файл для хранения данных из различных блоков (совпадающих по структуре и локаторам)
-- **service_pages_data.json** - выделенный файл для хранения данных о страницах и проектах (заголовок страницы и урл)
-
-## Поиск элементов
-
-1. Уникальные HTML-атрибуты (`id`, `name`)
-2. Семантические CSS-селекторы (`input[type="email"]`)
-3. Иерархические цепочки (`div.modal > button.confirm`)
-4. XPath только для динамического контента
-
-**Запрещено:**
-    - Использовать жесткую индексацию 
-    - Использовать жесткую иерархическую цепочку
-    - Текст на языке интерфейса 
-
-Для запуска с локалки на тесте меняем переменную environment (в файле conftest.py) с production на development.
-В классе BasePage в конструкторе сменить os.getenv('MAIN_PAGE', 'https://dev.godev.agency/') на os.getenv('PROD_PAGE', 'https://godev.agency/')
-В put_a_secret() в классе BasePage сделать тоже самое. 
-В классе data_loader в методе put_a_secret_loader сделать тоже самое. 
+- [x] Проверки метатегов - title, descr, canonical
+- [x] Проверки линков на всех страницах
+- [x] Проверка успешной отправки заявки
+- [x] Проверка негативных кейсов отправки заявок
+- [x] Проверка работоспособности меню
 
 
-Структура сайта: 
-Меню - Main, Services, Project, Review, About
-Меню Services - IT Staff Augmentation, Mobile development, Software development, Website development, 
-Web development, Design, Tech support, Technologies.
-Сабменю Software development - Custom Software development
-Сабменю Website development - CMS, E-commerce, B2B, D2C, Landing page, Framework
-Сабменю Web development - SAAS
-Сабменю Design - Website design
-Сабменю Technologies - Wordpress, Joomla, ReactJS, Java, Laravel, Codeigniter, Symfony, OpenCart (наполнение)
+----
 
-              - 
+### Используемый стэк
+
+<img title="Python" src="page_elements/icons/python-original.svg" height="40" width="40"/> <img title="Pytest" src="page_elements/icons/pytest-original.svg" height="40" width="40"/> <img title="Jira" src="page_elements/icons/jira-original.svg" height="40" width="40"/> <img title="Allure Report" src="page_elements/icons/Allure_Report.png" height="40" width="40"/> <img title="Allure TestOps" src="page_elements/icons/AllureTestOps.png" height="40" width="40"/> <img title="GitHub" src="page_elements/icons/github-original.svg" height="40" width="40"/> <img title="Selenoid" src="page_elements/icons/selenoid.png" height="40" width="40"/> <img title="Selenium" src="page_elements/icons/selenium-original.svg" height="40" width="40"/> <img title="Selene" src="page_elements/icons/selene.png" height="40" width="40"/> <img title="Pycharm" src="page_elements/icons/pycharm.png" height="40" width="40"/> <img title="Telegram" src="page_elements/icons/tg.png" height="40" width="40"/> <img title="Jenkins" src="page_elements/icons/jenkins-original.svg" height="40" width="40"/>
+
+----
+
+### Локальный запуск автотестов
+
+#### Для запуска web/UI автотестов выполнить в cli:
+```bash
+python -m venv .venv
+source .venv/bin/activate
+pip install -r requirements.txt
+pytest tests
+```
+
+#### Получение отчёта:
+```bash
+allure allure serve tests/allure-results
+```
+
+----
+
+### Проект в Jenkins
+> <a target="_blank" href="https://jenkins.autotests.cloud/job/godev_agency_tests/">Ссылка</a>
+
+#### Параметры сборки
+```python
+ENVIRONMENT = ['development', 'PROD_PAGE'] # Окружение
+BROWSER_VERSION = '127.0' # Версия браузера хром. Можно запускать на 128.0
+```
+#### Запуск автотестов в Jenkins
+1. Открыть <a target="_blank" href="https://jenkins.autotests.cloud/job/godev_agency_tests/">проект</a>
+
+![jenkins project main page](/page_elements/allure_report_and_jenkins/jenkins_project_main_page.png)
+
+1. Нажать "Build with Parameters"
+2. Из списка "ENVIRONMENT" выбрать окружение
+3. В поле "BROWSER_VERSION" ввести версию браузера (запуск возможен в 128.0 и 127.0 версиях)
+4. Нажать "Build"
+
+![jenkins_build](/page_elements/allure_report_and_jenkins/start_job_in_jenkins.png)
+
+----
+
+### Allure отчет
+
+#### <a target="_blank" href="https://jenkins.autotests.cloud/job/godev_agency_tests/">Открытие отчета после сборки</a>
+![allure_report_after_work_job](/page_elements/allure_report_and_jenkins/allure_report_after_work_job.png)
+
+#### <a target="_blank" href="https://jenkins.autotests.cloud/job/godev_agency_tests/24/allure/">Общие результаты</a>
+![allure_report_overview](/page_elements/allure_report_and_jenkins/allure_report_overview.png)
+
+#### <a target="_blank" href="https://jenkins.autotests.cloud/job/Ivi-mobile-and-UI-Auto-Tests/15/allure/#suites">Результаты прохождения теста</a>
+
+![allure_reports_behaviors](/page_elements/allure_report_and_jenkins/allure_reports_suites.png)
+
+#### <a target="_blank" href="https://jenkins.autotests.cloud/job/godev_agency_tests/24/allure/#graph">Графики</a>
+
+
+![allure_reports_graphs](/page_elements/allure_report_and_jenkins/allure_reports_graphs_1.png)
+![allure_reports_graphs](/page_elements/allure_report_and_jenkins/allure_reports_graphs_2.png)
+
+----
+
+### Оповещения в Telegram
+![telegram_allert](/page_elements/allure_report_and_jenkins/telegram_allert.png)
+
+----
+
+### Видео прохождения web/UI автотеста
+![autotest_gif](/page_elements/allure_report_and_jenkins/autotest.gif)
+
+----
