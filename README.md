@@ -82,7 +82,7 @@ BROWSER_VERSION = '127.0' # Версия браузера хром. Можно �
 
 #### <a target="_blank" href="https://jenkins.autotests.cloud/job/Ivi-mobile-and-UI-Auto-Tests/15/allure/#suites">Результаты прохождения теста</a>
 
-![allure_reports_behaviors](/page_elements/allure_report_and_jenkins/allure_reports_suites.png)
+![allure_reports_behaviors](/page_elements/allure_report_and_jenkins/allure_reports_behaviors.png)
 
 #### <a target="_blank" href="https://jenkins.autotests.cloud/job/godev_agency_tests/24/allure/#graph">Графики</a>
 
